@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: brokerage-notes-service
+  name: brokerage-notes-service
+spec:
+  type: LoadBalancer
+  ports:
+    - name: 80-8080
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+  selector:
+    app: brokerage-notes-service
+status:
+  loadBalancer: {}

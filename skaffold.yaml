@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2beta18
+kind: Config
+metadata:
+  name: brokerage-notes-service
+build:
+  artifacts:
+    - image: localhost:5000/apps/brokerage-notes
+      custom:
+        buildCommand: ./mvnw spring-boot:build-image -D spring-boot.build-image.imageName=$IMAGE && docker push $IMAGE
+        dependencies:
+          paths:
+            - src
+            - pom.xml
+deploy:
+  kubectl:
+    manifests:
+      - k8s/deployment.yaml
+      - k8s/service.yaml
